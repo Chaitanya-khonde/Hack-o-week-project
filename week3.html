@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BGMI Tournament Registration</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS STYLES START --- */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #fff;
+            /* IMPORTANT: Make sure you have an image named 'bgmi-bg.jpg' in the same folder */
+            background: url('bgmi.jpg') no-repeat center center/cover; 
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Dark overlay for readability */
+        .background-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: -1;
+        }
+
+        /* Glassmorphism Container */
+        .container {
+            width: 100%;
+            max-width: 700px;
+            background: rgba(20, 20, 20, 0.85);
+            backdrop-filter: blur(10px);
+            border: 2px solid #fca311; /* BGMI Orange */
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(252, 163, 17, 0.4);
+        }
+
+        /* Header Typography */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 2.5rem;
+            color: #fca311;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(252, 163, 17, 0.8);
+        }
+
+        header h2 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.5rem;
+            color: #e5e5e5;
+        }
+
+        .subtitle {
+            color: #aaa;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        /* Info Card */
+        .info-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid #fca311;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 5px;
+        }
+
+        .info-card h3 {
+            color: #fca311;
+            margin-bottom: 10px;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .detail-item span {
+            font-weight: bold;
+            color: #fca311;
+        }
+
+        .upi-id {
+            font-family: monospace;
+            background: #000;
+            padding: 5px 10px;
+            display: inline-block;
+            border-radius: 4px;
+            color: #0f0; /* Matrix green */
+            margin-top: 5px;
+        }
+
+        /* Form Styling */
+        fieldset {
+            border: 1px solid #444;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        legend {
+            color: #fca311;
+            padding: 0 10px;
+            font-weight: bold;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.2rem;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .row .form-group {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: #ddd;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="email"],
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            background: #222;
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #fca311;
+            box-shadow: 0 0 8px rgba(252, 163, 17, 0.3);
+        }
+
+        input[type="file"] {
+            padding: 8px;
+            background: #333;
+        }
+
+        .note {
+            display: block;
+            margin-top: 5px;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #fca311, #d00000);
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            font-family: 'Rajdhani', sans-serif;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(208, 0, 0, 0.6);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 600px) {
+            .row {
+                flex-direction: column;
+            }
+            
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+        }
+        /* --- CSS STYLES END --- */
+    </style>
+</head>
+<body>
+
+    <div class="background-overlay"></div>
+
+    <div class="container">
+        <header>
+            <h1>SYMBI CAMPUS BATTLEGROUNDS</h1>
+            <h2>BGMI TOURNAMENT 2026</h2>
+            <p class="subtitle">Squad Up. Drop In. Survive.</p>
+        </header>
+
+        <div class="info-card">
+            <h3>TOURNAMENT DETAILS</h3>
+            <div class="details-grid">
+                <div class="detail-item">
+                    <span>📅 Date:</span> Feb 20, 2026
+                </div>
+                <div class="detail-item">
+                    <span>⏰ Time:</span> 10:00 AM 
+                </div>
+                <div class="detail-item">
+                    <span>📍 Map:</span> Erangel / Sanhok
+                </div>
+                <div class="detail-item">
+                    <span>💰 Entry Fee:</span> ₹200 / Squad
+                </div>
+            </div>
+            <div class="payment-info">
+                <p><strong>PAYMENT METHOD:</strong> UPI / GPay / PhonePe</p>
+                <p class="upi-id">UPI ID: chaitnayakhonde@okhdfcbank</p>
+                <small class="note">*Please take a screenshot of your payment for upload below*</small>
+            </div>
+        </div>
+
+        <form action="#" method="POST" enctype="multipart/form-data">
+            
+            <fieldset>
+                <legend>Team Details</legend>
+                <div class="form-group">
+                    <label for="teamName">Team Name</label>
+                    <input type="text" id="teamName" name="teamName" placeholder="e.g. Soul Reapers" required>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>IGL (Captain) Info</legend>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="iglName">IGL Name</label>
+                        <input type="text" id="iglName" name="iglName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="iglPhone">Contact Number (WhatsApp)</label>
+                        <input type="tel" id="iglPhone" name="iglPhone" pattern="[0-9]{10}" placeholder="10 Digit Number" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="iglDept">Department & Sem</label>
+                        <input type="text" id="iglDept" name="iglDept" placeholder="e.g. CSE - 6th Sem" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="altPhone">Alternate Phone Number</label>
+                        <input type="tel" id="altPhone" name="altPhone" pattern="[0-9]{10}" placeholder="Optional">
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Squad Members</legend>
+                <div class="form-group">
+                    <label for="member2">Team Member 2 (Name & In-Game Name)</label>
+                    <input type="text" id="member2" name="member2" required>
+                </div>
+                <div class="form-group">
+                    <label for="member3">Team Member 3 (Name & In-Game Name)</label>
+                    <input type="text" id="member3" name="member3" required>
+                </div>
+                <div class="form-group">
+                    <label for="member4">Team Member 4 (Name & In-Game Name)</label>
+                    <input type="text" id="member4" name="member4" required>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Registration Verification</legend>
+                <div class="form-group">
+                    <label for="screenshot">Upload Payment Screenshot</label>
+                    <input type="file" id="screenshot" name="screenshot" accept="image/*" required>
+                    <small class="note">Max file size: 2MB. Ensure Transaction ID is visible.</small>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">I agree that my squad will adhere to fair play rules. No emulators/hacks.</label>
+                </div>
+            </fieldset>
+
+            <button type="submit" class="submit-btn">REGISTER SQUAD</button>
+        </form>
+    </div>
+
+</body>
+</html>
